@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { ThemeProvider } from '@mui/system';
 
+
+import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+
+// import './i18n';
+const HomeRoutes = lazy(() => import('./routes/HomeRoutes'));
+const AdminRoutes = lazy(() => import('./routes/AdminRoutes'));
+// const EntityRoutes = lazy(() => import('./routes/EntityRoutes'));
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <LocalizationProvider dateAdapter={AdapterMoment}>
+    <Suspense fallback={null}>
+      {/* <React.StrictMode> */}
+      <BrowserRouter basename='/'>
+        {/* <HomeRoutes /> */}
+        <AdminRoutes />
+      </BrowserRouter>
+      <BrowserRouter basename='/admin'>
+        <AdminRoutes />
+      </BrowserRouter>
+      <ToastContainer />
+      {/* </React.StrictMode> */}
+    </Suspense>
+  </LocalizationProvider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
