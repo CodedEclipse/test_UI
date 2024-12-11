@@ -17,14 +17,14 @@ function Login() {
         },
         validationSchema:AdminLoginSchema,
         onSubmit: async (values) => {
-            await _post_data('/admin/login',values)
+            await _post_data('/admin/adminLogin',values)
             .then((res)  => {
-                if(res.data.status){
-                    set_admin_logged(res.data.results);
+                if(res.status){
+                    set_admin_logged(res);
                     loginData.resetForm();
                     navigate("/");
                 }else{
-                    Toast(2, res.data.message);
+                    Toast(2, res.message);
                 }
             }).catch((e) => {
                 Toast(2, e.response.data.error);

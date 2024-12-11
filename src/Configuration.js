@@ -1,6 +1,7 @@
 import CryptoJS from "crypto-js";
 
 const ADMIN_TOKEN_KEY = 'ff591090-0805-4282-8493-e9435a4d3d67';
+const secretKey = 'b3a3f72ad8a00b91edb28bfcf81f88ac9c46609bbab60d347139db62c5c2673b';
 
 const set_admin_logged = (data) => {
     const temp = JSON.stringify(data);
@@ -14,7 +15,7 @@ const admin_logged_data = () => {
     if (session_data && session_data.length > 0) {
         var decrypted = decrypt(session_data);
         var data = JSON.parse(decrypted);
-        if (data && data.accessToken !='') {
+        if (data && data.accessToken != '') {
             return data;
         }
     }
@@ -69,10 +70,32 @@ const decrypt = (param) => {
     }
 };
 
+const EncryptData = (data) => {
+    if (typeof data === 'object') {
+        data = JSON.stringify(data);
+    }
+    let encrypted = '';
+    for (let i = 0; i < data.length; i++) {
+        encrypted += String.fromCharCode(data.charCodeAt(i) ^ secretKey.charCodeAt(i % secretKey.length));
+    }
+    return btoa(encrypted);
+};
+
+const DecryptData = (encryptedData) => {
+    encryptedData = atob(encryptedData);
+    let decryptedData = '';
+    for (let i = 0; i < encryptedData.length; i++) {
+        decryptedData += String.fromCharCode(encryptedData.charCodeAt(i) ^ secretKey.charCodeAt(i % secretKey.length));
+    }
+    return decryptedData;
+};
+
 export {
     set_admin_logged,
     admin_logged_data,
     admin_logged_clear,
     encrypt,
-    decrypt
+    decrypt,
+    EncryptData,
+    DecryptData
 };

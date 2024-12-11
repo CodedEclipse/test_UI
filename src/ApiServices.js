@@ -1,8 +1,36 @@
 import axios from "axios";
+import { EncryptData, DecryptData } from './Configuration'
 
 const apiService = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
 });
+
+apiService.interceptors.request.use(
+  (config) => {
+    if (config.data) {
+      const encrypted = EncryptData(config.data);
+      config.data = { encrypted:encrypted };
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+apiService.interceptors.response.use(
+  (response) => {
+    if (response.data && response.data.encrypted) {
+      const decryptedData = DecryptData(response.data.encrypted);
+      response.data = JSON.parse(decryptedData);
+    }
+    return JSON.parse(response);
+  },
+  (error) => {
+    const decryptedData = DecryptData(error.response.data.encrypted);
+    return JSON.parse(decryptedData);
+  }
+);
+
 
 const admin_get_data = (endpoint, loggedData) => {
     console.log("manish ==========",loggedData);
