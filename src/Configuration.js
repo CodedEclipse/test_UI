@@ -4,6 +4,8 @@ const ADMIN_TOKEN_KEY = 'ff591090-0805-4282-8493-e9435a4d3d67';
 const secretKey = 'b3a3f72ad8a00b91edb28bfcf81f88ac9c46609bbab60d347139db62c5c2673b';
 
 const set_admin_logged = (data) => {
+    console.log('localhost data ',data);
+    
     const temp = JSON.stringify(data);
     var enc = encrypt(temp);
     localStorage.setItem(ADMIN_TOKEN_KEY, enc);
@@ -18,6 +20,7 @@ const admin_logged_data = () => {
         if (data && data.accessToken != '') {
             return data;
         }
+        return data
     }
     return null;
 };

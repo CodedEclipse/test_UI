@@ -22,21 +22,21 @@ function Header({ toggleSidebar }) {
   const [loggedData, setLoggedData] = useState({});
 
   useEffect(() => {
-     var tempLogged = admin_logged_data();
-     setLoggedData(tempLogged);
-    if (tempLogged == null || !tempLogged.accessToken) {
-       navigate("/login");
-     }
+    var tempLogged = admin_logged_data();
+    setLoggedData(tempLogged);
+    if (tempLogged == null || tempLogged.status === false) {
+      navigate("/login");
+    }
   }, [navigate]);
 
-  const logout = async()=>{
+  const logout = async () => {
     admin_logged_clear();
     navigate("/login");
   }
 
 
   return (
-    <>  
+    <>
       <header id="header" className="header fixed-top d-flex align-items-center ">
         <div className="d-flex align-items-center justify-content-between">
           <a href="index.html" className="logo d-flex align-items-center">

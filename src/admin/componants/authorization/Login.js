@@ -19,14 +19,17 @@ function Login() {
         onSubmit: async (values) => {
             await _post_data('/admin/adminLogin',values)
             .then((res)  => {
-                if(res.status){
-                    set_admin_logged(res);
+                console.log('res',res.data);
+                res.data = JSON.parse(res.data)
+                if(res.data.status){
+                    set_admin_logged(res.data);
                     loginData.resetForm();
                     navigate("/");
                 }else{
-                    Toast(2, res.message);
+                    Toast(2, res.data.message);
                 }
             }).catch((e) => {
+                console.log('e',e);
                 Toast(2, e.response.data.error);
             });
         },

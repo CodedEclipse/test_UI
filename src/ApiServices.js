@@ -21,9 +21,9 @@ apiService.interceptors.response.use(
   (response) => {
     if (response.data && response.data.encrypted) {
       const decryptedData = DecryptData(response.data.encrypted);
-      response.data = JSON.parse(decryptedData);
+      response.data = decryptedData;
     }
-    return JSON.parse(response);
+    return response;
   },
   (error) => {
     const decryptedData = DecryptData(error.response.data.encrypted);
