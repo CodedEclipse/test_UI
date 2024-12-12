@@ -7,6 +7,7 @@ const HomeLayout = lazy(() => import('../admin/layout/Layout'));
 const Dashboard = lazy(() => import('../admin/componants/Dashbord'));
 const Login = lazy(() => import('../admin/componants/authorization/Login'));
 const Register = lazy(() => import('../admin/componants/authorization/Register'));
+const UsersList = lazy(() => import('../admin/componants/UserList'));
 
 
 function HomeRoutes() {
@@ -22,11 +23,11 @@ function HomeRoutes() {
                 } />
 
                 
-                {/* <Route path='/login' element={
+                <Route path='/user-list' element={
                     <Suspense fallback={<PageLoader />}>
-                        <Login />
+                        <UsersList />
                     </Suspense>
-                } /> */}
+                } />
                
             </Route>
 
