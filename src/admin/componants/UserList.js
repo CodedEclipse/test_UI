@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { createRoot } from "react-dom/client";
 import { AgGridReact } from "@ag-grid-community/react";
 import "@ag-grid-community/styles/ag-grid.css";
@@ -15,7 +15,7 @@ ModuleRegistry.registerModules([
     MenuModule,
     RowGroupingModule,
     SetFilterModule,
-  ]);
+]);
 function UsersList() {
     const [yData, setYData] = useState('');
     useEffect(() => {
@@ -29,34 +29,34 @@ function UsersList() {
     const [rowData, setRowData] = useState();
     const [columnDefs, setColumnDefs] = useState([
 
-                {
-                    field: "athlete",
-                    filter: "agTextColumnFilter",
-                    enableRowGroup: true,
-                    enablePivot: true,
-                    minWidth: 150,
-                },
-                { field: "age", enableRowGroup: true, enablePivot: true },
-                {
-                    field: "country",
-                    enableRowGroup: true,
-                    enablePivot: true,
-                    minWidth: 125,
-                },
- 
-                { field: "year", enableRowGroup: true, enablePivot: true },
-                {
-                    field: "date",
-                    enableRowGroup: true,
-                    enablePivot: true,
-                    minWidth: 180,
-                },
+        {
+            field: "athlete",
+            filter: "agTextColumnFilter",
+            enableRowGroup: true,
+            enablePivot: true,
+            minWidth: 150,
+        },
+        { field: "age", enableRowGroup: true, enablePivot: true },
+        {
+            field: "country",
+            enableRowGroup: true,
+            enablePivot: true,
+            minWidth: 125,
+        },
+
+        { field: "year", enableRowGroup: true, enablePivot: true },
+        {
+            field: "date",
+            enableRowGroup: true,
+            enablePivot: true,
+            minWidth: 180,
+        },
         { field: "sport", enableRowGroup: true, enablePivot: true, minWidth: 125 },
 
-                { field: "gold", enableValue: true },
-                { field: "silver", enableValue: true },
-                { field: "bronze", enableValue: true },
-                { field: "total", enableValue: true },
+        { field: "gold", enableValue: true },
+        { field: "silver", enableValue: true },
+        { field: "bronze", enableValue: true },
+        { field: "total", enableValue: true },
     ]);
     const defaultColDef = useMemo(() => ({
         flex: 1,

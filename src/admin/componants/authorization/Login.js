@@ -22,7 +22,7 @@ function Login() {
                 console.log('res',res.data);
                 res.data = JSON.parse(res.data)
                 if(res.data.status){
-                    set_admin_logged(res.data);
+                    set_admin_logged(res.data.result);
                     loginData.resetForm();
                     navigate("/");
                 }else{

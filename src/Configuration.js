@@ -20,7 +20,6 @@ const admin_logged_data = () => {
         if (data && data.accessToken != '') {
             return data;
         }
-        return data
     }
     return null;
 };

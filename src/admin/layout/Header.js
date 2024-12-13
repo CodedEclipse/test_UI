@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { admin_logged_data, admin_logged_clear, set_alert_msg } from '../../Configuration';
+import { admin_logged_data, admin_logged_clear } from '../../Configuration';
+import { admin_post_data } from '../../ApiServices.js';
 import Dropdown from 'react-bootstrap/Dropdown';
 import '../assets/css/style.css'
 // import '../assets/styles/adminlayout.css';
@@ -30,8 +31,23 @@ function Header({ toggleSidebar }) {
   }, [navigate]);
 
   const logout = async () => {
-    admin_logged_clear();
-    navigate("/login");
+
+    await admin_post_data('/admin/logout', {}, admin_logged_data())
+      .then((res) => {
+        res.data = JSON.parse(res.data)
+        console.log('res.data',res.data);
+        
+        if (res.data.status) {
+          admin_logged_clear();
+          navigate("/login");
+        } else {
+          Toast(2, res.data.message);
+        }
+      }).catch((e) => {
+        console.log('e', e);
+        Toast(2, e.response.data.error);
+      });
+
   }
 
 

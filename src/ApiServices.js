@@ -39,8 +39,7 @@ const admin_get_data = (endpoint, loggedData) => {
   return apiService.post(endpoint, {   //get -> post
     headers: {
     //   "Content-Type": "application/json",
-      "X-Auth-Key":`${loggedData.auth_key}`,
-      "X-Access-Token":`${loggedData.access_token}`,
+      "X-Access-Token":`${loggedData.accessToken}`,
     },
   });
 };
@@ -49,7 +48,7 @@ const admin_post_data = (endpoint, data, loggedData) => {
   return apiService.post(endpoint, data, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${loggedData.token}`,
+      "X-Access-Token":`${loggedData.accessToken}`,
     },
   });
 };
@@ -57,7 +56,7 @@ const admin_post_formData = (endpoint, formData, loggedData) => {
   return apiService.post(endpoint, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${loggedData.token}`,
+      "X-Access-Token":`${loggedData.accessToken}`,
     },
   });
 };
