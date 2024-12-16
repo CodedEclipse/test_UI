@@ -12,36 +12,36 @@ function Login() {
     const navigate = useNavigate();
     const loginData = useFormik({
         initialValues: {
-            username : "",
-            password : ""
+            username: "",
+            password: ""
         },
-        validationSchema:AdminLoginSchema,
+        validationSchema: AdminLoginSchema,
         onSubmit: async (values) => {
-            await _post_data('/admin/adminLogin',values)
-            .then((res)  => {
-                console.log('res',res.data);
-                res.data = JSON.parse(res.data)
-                if(res.data.status){
-                    set_admin_logged(res.data.result);
-                    loginData.resetForm();
-                    navigate("/");
-                }else{
-                    Toast(2, res.data.message);
-                }
-            }).catch((e) => {
-                console.log('e',e);
-                Toast(2, e.response.data.error);
-            });
+            await _post_data('/admin/adminLogin', values)
+                .then((res) => {
+                    console.log('res', res.data);
+                    res.data = JSON.parse(res.data)
+                    if (res.data.status) {
+                        set_admin_logged(res.data.result);
+                        loginData.resetForm();
+                        navigate("/");
+                    } else {
+                        Toast(2, res.data.message);
+                    }
+                }).catch((e) => {
+                    console.log('e', e);
+                    Toast(2, e.response.data.error);
+                });
         },
     });
     const [loggedData, setLoggedData] = useState({});
-  
+
     useEffect(() => {
-       var tempLogged = admin_logged_data();
-       setLoggedData(tempLogged);
-      if (tempLogged != null && tempLogged.accessToken !='') {
-         navigate("/");
-       }
+        var tempLogged = admin_logged_data();
+        setLoggedData(tempLogged);
+        if (tempLogged != null && tempLogged.accessToken != '') {
+            navigate("/");
+        }
     }, [navigate]);
 
     return (
@@ -54,10 +54,10 @@ function Login() {
                             <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                                 <div className="d-flex justify-content-center py-4">
-                                    <a href="index.html" className="logo d-flex align-items-center w-auto">
+                                    <div className="logo d-flex align-items-center w-auto">
                                         <img src="assets/img/logo.png" alt="" />
-                                        <span className="d-none d-lg-block">NiceAdmin</span>
-                                    </a>
+                                        <span className="d-none d-lg-block">Admin</span>
+                                    </div>
                                 </div>
 
                                 <div className="card mb-3">
@@ -74,10 +74,10 @@ function Login() {
                                             <div className="col-12">
                                                 <label htmlFor="yourUsername" className="form-label">Username</label>
                                                 <div className="input-group has-validation">
-                                                    <input type="text" name="username" className="form-control" id="yourUsername" 
-                                                    value={loginData.values.username}
-                                                    onChange={loginData.handleChange}
-                                                    onBlur={loginData.handleBlur}/>
+                                                    <input type="text" name="username" className="form-control" id="yourUsername"
+                                                        value={loginData.values.username}
+                                                        onChange={loginData.handleChange}
+                                                        onBlur={loginData.handleBlur} />
                                                     {loginData.touched.username && loginData.errors.username && (
                                                         <span className="login-danger validation-text">* &nbsp;
                                                             {loginData.errors.username}
@@ -88,10 +88,10 @@ function Login() {
 
                                             <div className="col-12">
                                                 <label htmlFor="yourPassword" className="form-label">Password</label>
-                                                <input type="password" name="password" className="form-control" id="yourPassword" 
-                                                value={loginData.values.password}
-                                                onChange={loginData.handleChange}
-                                                onBlur={loginData.handleBlur} /> 
+                                                <input type="password" name="password" className="form-control" id="yourPassword"
+                                                    value={loginData.values.password}
+                                                    onChange={loginData.handleChange}
+                                                    onBlur={loginData.handleBlur} />
                                                 {loginData.touched.password && loginData.errors.password && (
                                                     <span className="login-danger validation-text">* &nbsp;
                                                         {loginData.errors.password}
@@ -109,19 +109,14 @@ function Login() {
                                                 <button className="btn btn-primary w-100" type="submit">Login</button>
                                             </div>
                                             <div className="col-12">
-                                                {/* <p className="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p> */}
                                                 <Link to='/register' className="dropdown-item">
-                                                    <i className="bi bi-box-arrow-right"></i>
-                                                    <span>Create an account</span>
+                                                    Don't have account? <i className="bi bi-box-arrow-right"></i>
+                                                    <span style={{ color: '#1290ff' }}>Create an account</span>
                                                 </Link>
                                             </div>
                                         </form>
 
                                     </div>
-                                </div>
-
-                                <div className="credits">
-                                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
                                 </div>
 
                             </div>

@@ -4,6 +4,8 @@ import { PageLoader } from '../Loader';
 
 
 const HomeLayout = lazy(() => import('../home/layout/Layout'));
+const HomePage = lazy(() => import('../home/componants/HomePage'));
+const Register = lazy(() => import('../home/componants/Registration'));
 
 
 function HomeRoutes() {
@@ -12,16 +14,14 @@ function HomeRoutes() {
             <Route element={<HomeLayout />}>
                 <Route index element={
                     <Suspense fallback={<PageLoader />}>
-                        {/* <Home /> */}
+                        <HomePage />
                     </Suspense>
                 } />
-
-                
-                {/* <Route path='/login' element={
+                <Route path='/register-user' element={
                     <Suspense fallback={<PageLoader />}>
-                        <Login />
+                        <Register />
                     </Suspense>
-                } /> */}
+                } />
                
             </Route>
 

@@ -6,14 +6,20 @@ import Footer from './Footer';
 
 function Layout() {
     return (
-        <div className="wrapper">
-            <Header />
-            <Sidebar /> 
-            <div className="content-page sb-margin-zero-mob">
-                <Outlet />
+        <>
+        <body>  
+        <Header />
+            {/* <Sidebar />  */}
+            {/* <div className="content-page sb-margin-zero-mob"> */}
+            <Outlet />
+            <footer>
                 <Footer />
-            </div>            
-        </div>
+            </footer>
+            {/* </div>             */}
+        </body>
+           
+        </>
+
     );
 }
 

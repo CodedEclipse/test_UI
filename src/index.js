@@ -19,8 +19,8 @@ root.render(
     <Suspense fallback={null}>
       {/* <React.StrictMode> */}
       <BrowserRouter basename='/'>
-        {/* <HomeRoutes /> */}
-        <AdminRoutes />
+        <HomeRoutes />
+        {/* <AdminRoutes /> */}
       </BrowserRouter>
       <BrowserRouter basename='/admin'>
         <AdminRoutes />
