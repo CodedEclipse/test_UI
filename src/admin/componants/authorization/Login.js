@@ -19,7 +19,7 @@ function Login() {
         onSubmit: async (values) => {
             await _post_data('/admin/adminLogin', values)
                 .then((res) => {
-                    console.log('res', res.data);
+                    // console.log('res', res.data);
                     res.data = JSON.parse(res.data)
                     if (res.data.status) {
                         set_admin_logged(res.data.result);

@@ -8,6 +8,7 @@ const Dashboard = lazy(() => import('../admin/componants/Dashbord'));
 const Login = lazy(() => import('../admin/componants/authorization/Login'));
 const Register = lazy(() => import('../admin/componants/authorization/Register'));
 const UsersList = lazy(() => import('../admin/componants/UserList'));
+const CustomerList = lazy(() => import('../admin/componants/CustomerList'));
 
 
 function HomeRoutes() {
@@ -26,6 +27,11 @@ function HomeRoutes() {
                 <Route path='/user-list' element={
                     <Suspense fallback={<PageLoader />}>
                         <UsersList />
+                    </Suspense>
+                } />
+                <Route path='/customer-list' element={
+                    <Suspense fallback={<PageLoader />}>
+                        <CustomerList />
                     </Suspense>
                 } />
                

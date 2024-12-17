@@ -37,6 +37,11 @@ function Sidebar() {
                     <i className="far fa-circle"></i><span>Users List</span>
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/customer-list">
+                    <i className="far fa-circle"></i><span>Customer List</span>
+                </NavLink>
+              </li>
             </ul>
           </li>
           {/* <li className="nav-heading">Pages</li>
