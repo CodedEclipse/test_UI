@@ -6,7 +6,7 @@ function Sidebar() {
   const [actions, setActions] = useState([false]);
 
   const toggleAction = index => {
-    setActions(prevActions => 
+    setActions(prevActions =>
       prevActions.map((action, i) => i === index ? !action : action)
     );
   };
@@ -14,45 +14,94 @@ function Sidebar() {
 
   return (
     <>
-      <aside id="sidebar" className="sidebar">
-        <ul className="sidebar-nav" id="sidebar-nav">
-          <li className="nav-item">
-            <NavLink to="/">
-              <i className="fas fa-th"></i>
-              <span>Dashboard</span>
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" onClick={() => toggleAction(0)}>
-              <i className="fas fa-bars"></i><span>Components</span>
-              {actions[0] ? (
-                <i className="fas fa-chevron-up ms-auto"></i>
-              ) : (
-                <i className="fas fa-chevron-down ms-auto"></i>
-              )}
-            </a>
-            <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <NavLink to="/user-list">
-                    <i className="far fa-circle"></i><span>Users List</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/customer-list">
-                    <i className="far fa-circle"></i><span>Customer List</span>
-                </NavLink>
-              </li>
-            </ul>
-          </li>
-          {/* <li className="nav-heading">Pages</li>
-          <li className="nav-item">
-            <a className="nav-link collapsed" href="users-profile.html">
-              <i className="bi bi-person"></i>
-              <span>Profile</span>
-            </a>
-          </li> */}
-        </ul>
-      </aside>
+      <nav className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+        <div className="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
+          <a className="nav-item nav-link px-0 me-xl-6" href="javascript:void(0)">
+            <i className="bx bx-menu bx-md"></i>
+          </a>
+        </div>
+
+        <div className="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+          <div className="navbar-nav align-items-center">
+            <div className="nav-item d-flex align-items-center">
+              <i className="bx bx-search bx-md"></i>
+              <input
+                type="text"
+                className="form-control border-0 shadow-none ps-1 ps-sm-2"
+                placeholder="Search..."
+                aria-label="Search..." />
+            </div>
+          </div>
+          <ul className="navbar-nav flex-row align-items-center ms-auto">
+            <li className="nav-item lh-1 me-4">
+              <a
+                className="github-button"
+                href="https://github.com/themeselection/sneat-html-admin-template-free"
+                data-icon="octicon-star"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+              >Star</a
+              >
+            </li>
+            <li className="nav-item navbar-dropdown dropdown-user dropdown">
+              <a
+                className="nav-link dropdown-toggle hide-arrow p-0"
+                href="javascript:void(0);"
+                data-bs-toggle="dropdown">
+                <div className="avatar avatar-online">
+                  <img src="../assets/img/avatars/1.png" alt className="w-px-40 h-auto rounded-circle" />
+                </div>
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <div className="d-flex">
+                      <div className="flex-shrink-0 me-3">
+                        <div className="avatar avatar-online">
+                          <img src="../assets/img/avatars/1.png" alt className="w-px-40 h-auto rounded-circle" />
+                        </div>
+                      </div>
+                      <div className="flex-grow-1">
+                        <h6 className="mb-0">John Doe</h6>
+                        <small className="text-muted">Admin</small>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <div className="dropdown-divider my-1"></div>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <i className="bx bx-user bx-md me-3"></i><span>My Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#"> <i className="bx bx-cog bx-md me-3"></i><span>Settings</span> </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    <span className="d-flex align-items-center align-middle">
+                      <i className="flex-shrink-0 bx bx-credit-card bx-md me-3"></i
+                      ><span className="flex-grow-1 align-middle">Billing Plan</span>
+                      <span className="flex-shrink-0 badge rounded-pill bg-danger">4</span>
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <div className="dropdown-divider my-1"></div>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="javascript:void(0);">
+                    <i className="bx bx-power-off bx-md me-3"></i><span>Log Out</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </>
   );
 }

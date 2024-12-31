@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { PageLoader } from '../Loader';
 
 
-const HomeLayout = lazy(() => import('../admin/layout/Layout'));
+const HomeLayout = lazy(() => import('../admin/layouts/Layout'));
 const Dashboard = lazy(() => import('../admin/componants/Dashbord'));
 const Login = lazy(() => import('../admin/componants/authorization/Login'));
 const Register = lazy(() => import('../admin/componants/authorization/Register'));

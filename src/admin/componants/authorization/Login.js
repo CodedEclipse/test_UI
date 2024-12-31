@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import '../../assets/css/style.css'
+// import '../../assets/css/style.css'
 import { _post_data } from '../../../ApiServices'
 import { AdminLoginSchema } from '../../schema/Comman_Schema'
 import { useFormik } from "formik";

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import '../assets/css/style.css'
+// import '../assets/css/style.css'
 
 function Layout() {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
@@ -12,15 +12,19 @@ function Layout() {
         setSidebarVisible(prevState => !prevState);
     };
     return (
-        
-        <div className={isSidebarVisible ? 'wrapper' : 'toggle-sidebar'}>
-            <Header toggleSidebar={toggleSidebar} />
-            <Sidebar />
-            <div className="main" id="main"  >  
-                <Outlet />
+        <>
+            <div className="layout-wrapper layout-content-navbar">
+                <div className="layout-container">
+                    <Header />
+                    <div className="layout-page">
+                        <Sidebar />
+                        <Outlet />
+
+                    </div>
+                    {/* <Footer /> */}
+                </div>
             </div>
-                <Footer />
-        </div>
+        </>
     );
 }
 

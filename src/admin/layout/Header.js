@@ -4,10 +4,14 @@ import { Helmet } from "react-helmet";
 import { admin_logged_data, admin_logged_clear } from '../../Configuration';
 import { admin_post_data } from '../../ApiServices.js';
 import Dropdown from 'react-bootstrap/Dropdown';
-import '../assets/css/style.css'
-// import '../assets/styles/adminlayout.css';
-// import '../assets/js/js-config.js';
-// import '../assets/js/main.js';
+import '../assets/vendor/css/core.css'
+import '../assets/vendor/fonts/boxicons.css'
+import '../assets/vendor/css/theme-default.css'
+import '../assets/css/demo.css'
+import '../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'
+import '../assets/vendor/libs/apex-charts/apex-charts.css'
+
+
 import { Toast } from '../../ToasterService.js';
 
 
@@ -26,7 +30,7 @@ function Header({ toggleSidebar }) {
     var tempLogged = admin_logged_data();
     setLoggedData(tempLogged);
     if (tempLogged == null || tempLogged.status === false) {
-      navigate("/login");
+      navigate("/");
     }
   }, [navigate]);
 
@@ -35,8 +39,8 @@ function Header({ toggleSidebar }) {
     await admin_post_data('/admin/logout', {}, admin_logged_data())
       .then((res) => {
         res.data = JSON.parse(res.data)
-        console.log('res.data',res.data);
-        
+        console.log('res.data', res.data);
+
         if (res.data.status) {
           admin_logged_clear();
           navigate("/login");
@@ -53,197 +57,487 @@ function Header({ toggleSidebar }) {
 
   return (
     <>
-      <header id="header" className="header fixed-top d-flex align-items-center ">
-        <div className="d-flex align-items-center justify-content-between">
-          <a href="index.html" className="logo d-flex align-items-center">
-            <img src="assets/img/logo.png" alt="" />
-            <span className="d-none d-lg-block">NiceAdmin</span>
+      <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <div class="app-brand demo">
+          <a href="index.html" class="app-brand-link">
+            <span class="app-brand-logo demo">
+
+            </span>
+            <span class="app-brand-text demo menu-text fw-bold ms-2">sneat</span>
           </a>
-          <i className="fas fa-bars toggle-sidebar-btn" onClick={toggleAction}></i>
+
+          <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
+          </a>
         </div>
-        <div className="search-bar">
-          <form className="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword" />
-            <button type="submit" title="Search"><i className="bi bi-search"></i></button>
-          </form>
-        </div>
-        <nav className="header-nav ms-auto">
-          <ul className="d-flex align-items-center">
-            <li className="nav-item d-block d-lg-none">
-              <a className="nav-link nav-icon search-bar-toggle " href="#">
-                <i className="bi bi-search"></i>
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                <i className="far fa-bell"></i>
-                <span className="badge bg-primary badge-number">4</span>
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                <li className="dropdown-header">
-                  You have 4 new notifications
-                  <a href="#"><span className="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="notification-item">
-                  <i className="bi bi-exclamation-circle text-warning"></i>
-                  <div>
-                    <h4>Lorem Ipsum</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>30 min. ago</p>
-                  </div>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="notification-item">
-                  <i className="bi bi-x-circle text-danger"></i>
-                  <div>
-                    <h4>Atque rerum nesciunt</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>1 hr. ago</p>
-                  </div>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="notification-item">
-                  <i className="bi bi-check-circle text-success"></i>
-                  <div>
-                    <h4>Sit rerum fuga</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>2 hrs. ago</p>
-                  </div>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="notification-item">
-                  <i className="bi bi-info-circle text-primary"></i>
-                  <div>
-                    <h4>Dicta reprehenderit</h4>
-                    <p>Quae dolorem earum veritatis oditseno</p>
-                    <p>4 hrs. ago</p>
-                  </div>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="dropdown-footer">
-                  <a href="#">Show all notifications</a>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                <i className="far fa-comment-alt"></i>
-                <span className="badge bg-success badge-number">3</span>
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                <li className="dropdown-header">
-                  You have 3 new messages
-                  <a href="#"><span className="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="message-item">
-                  <a href="#">
-                    <img src="assets/img/messages-1.jpg" alt="" className="rounded-circle" />
-                    <div>
-                      <h4>Maria Hudson</h4>
-                      <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                      <p>4 hrs. ago</p>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="message-item">
-                  <a href="#">
-                    <img src="assets/img/messages-2.jpg" alt="" className="rounded-circle" />
-                    <div>
-                      <h4>Anna Nelson</h4>
-                      <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                      <p>6 hrs. ago</p>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="message-item">
-                  <a href="#">
-                    <img src="assets/img/messages-3.jpg" alt="" className="rounded-circle" />
-                    <div>
-                      <h4>David Muldon</h4>
-                      <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                      <p>8 hrs. ago</p>
-                    </div>
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li className="dropdown-footer">
-                  <a href="#">Show all messages</a>
-                </li>
-              </ul>
-            </li>
-            <li className="nav-item dropdown pe-3">
-              <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <img src="assets/img/profile-img.jpg" alt="Profile" className="rounded-circle" />
-                <span className="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                <li className="dropdown-header">
-                  <h6>Kevin Anderson</h6>
-                  <span>Web Designer</span>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
-                    <i className="bi bi-person"></i>
-                    <span>My Profile</span>
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
-                    <i className="bi bi-gear"></i>
-                    <span>Account Settings</span>
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                    <i className="bi bi-question-circle"></i>
-                    <span>Need Help?</span>
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item d-flex align-items-center" href="#">
-                    <i className="bi bi-box-arrow-right"></i>
-                    <span onClick={logout}>Sign Out</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-      </header>
+
+        <div class="menu-inner-shadow"></div>
+
+        <ul class="menu-inner py-1">
+          <li class="menu-item active open">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-home-smile"></i>
+              <div class="text-truncate" data-i18n="Dashboards">Dashboards </div>
+              <span class="badge rounded-pill bg-danger ms-auto">5</span>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item active">
+                <a href="index.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Analytics">Analytics</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/dashboards-crm.html"
+                  target="_blank"
+                  class="menu-link">
+                  <div class="text-truncate" data-i18n="CRM">CRM</div>
+                  <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-dashboard.html"
+                  target="_blank"
+                  class="menu-link">
+                  <div class="text-truncate" data-i18n="eCommerce">eCommerce</div>
+                  <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-logistics-dashboard.html"
+                  target="_blank"
+                  class="menu-link">
+                  <div class="text-truncate" data-i18n="Logistics">Logistics</div>
+                  <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="app-academy-dashboard.html" target="_blank" class="menu-link">
+                  <div class="text-truncate" data-i18n="Academy">Academy</div>
+                  <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-layout"></i>
+              <div class="text-truncate" data-i18n="Layouts">Layouts</div>
+            </a>
+
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="layouts-without-menu.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Without menu">Without menu</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="layouts-without-navbar.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Without navbar">Without navbar</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="layouts-fluid.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Fluid">Fluid</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="layouts-container.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Container">Container</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="layouts-blank.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Blank">Blank</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-store"></i>
+              <div class="text-truncate" data-i18n="Front Pages">Front Pages</div>
+              <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/landing-page.html"
+                  class="menu-link"
+                  target="_blank">
+                  <div class="text-truncate" data-i18n="Landing">Landing</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/pricing-page.html"
+                  class="menu-link"
+                  target="_blank">
+                  <div class="text-truncate" data-i18n="Pricing">Pricing</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/payment-page.html"
+                  class="menu-link"
+                  target="_blank">
+                  <div class="text-truncate" data-i18n="Payment">Payment</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/checkout-page.html"
+                  class="menu-link"
+                  target="_blank">
+                  <div class="text-truncate" data-i18n="Checkout">Checkout</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a
+                  href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/help-center-landing.html"
+                  class="menu-link"
+                  target="_blank">
+                  <div class="text-truncate" data-i18n="Help Center">Help Center</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Apps &amp; Pages</span>
+          </li>
+          <li class="menu-item">
+            <a
+              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-email.html"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-envelope"></i>
+              <div class="text-truncate" data-i18n="Email">Email</div>
+              <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a
+              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-chat.html"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-chat"></i>
+              <div class="text-truncate" data-i18n="Chat">Chat</div>
+              <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a
+              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-calendar.html"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-calendar"></i>
+              <div class="text-truncate" data-i18n="Calendar">Calendar</div>
+              <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a
+              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-kanban.html"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-grid"></i>
+              <div class="text-truncate" data-i18n="Kanban">Kanban</div>
+              <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-dock-top"></i>
+              <div class="text-truncate" data-i18n="Account Settings">Account Settings</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="pages-account-settings-account.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Account">Account</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="pages-account-settings-notifications.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Notifications">Notifications</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="pages-account-settings-connections.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Connections">Connections</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+              <div class="text-truncate" data-i18n="Authentications">Authentications</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="auth-login-basic.html" class="menu-link" target="_blank">
+                  <div class="text-truncate" data-i18n="Basic">Login</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="auth-register-basic.html" class="menu-link" target="_blank">
+                  <div class="text-truncate" data-i18n="Basic">Register</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
+                  <div class="text-truncate" data-i18n="Basic">Forgot Password</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+              <div class="text-truncate" data-i18n="Misc">Misc</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="pages-misc-error.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Error">Error</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="pages-misc-under-maintenance.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Under Maintenance">Under Maintenance</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
+          <li class="menu-item">
+            <a href="cards-basic.html" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-collection"></i>
+              <div class="text-truncate" data-i18n="Basic">Cards</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-box"></i>
+              <div class="text-truncate" data-i18n="User interface">User interface</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="ui-accordion.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Accordion">Accordion</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-alerts.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Alerts">Alerts</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-badges.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Badges">Badges</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-buttons.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Buttons">Buttons</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-carousel.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Carousel">Carousel</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-collapse.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Collapse">Collapse</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-dropdowns.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Dropdowns">Dropdowns</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-footer.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Footer">Footer</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-list-groups.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="List Groups">List groups</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-modals.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Modals">Modals</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-navbar.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Navbar">Navbar</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-offcanvas.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Offcanvas">Offcanvas</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-pagination-breadcrumbs.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Pagination & Breadcrumbs">Pagination &amp; Breadcrumbs</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-progress.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Progress">Progress</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-spinners.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Spinners">Spinners</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-tabs-pills.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Tabs & Pills">Tabs &amp; Pills</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-toasts.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Toasts">Toasts</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-tooltips-popovers.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Tooltips & Popovers">Tooltips &amp; Popovers</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="ui-typography.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Typography">Typography</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-copy"></i>
+              <div class="text-truncate" data-i18n="Extended UI">Extended UI</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Perfect Scrollbar">Perfect Scrollbar</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="extended-ui-text-divider.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Text Divider">Text Divider</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item">
+            <a href="icons-boxicons.html" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-crown"></i>
+              <div class="text-truncate" data-i18n="Boxicons">Boxicons</div>
+            </a>
+          </li>
+          <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-detail"></i>
+              <div class="text-truncate" data-i18n="Form Elements">Form Elements</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="forms-basic-inputs.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Basic Inputs">Basic Inputs</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="forms-input-groups.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Input groups">Input groups</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <i class="menu-icon tf-icons bx bx-detail"></i>
+              <div class="text-truncate" data-i18n="Form Layouts">Form Layouts</div>
+            </a>
+            <ul class="menu-sub">
+              <li class="menu-item">
+                <a href="form-layouts-vertical.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Vertical Form">Vertical Form</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="form-layouts-horizontal.html" class="menu-link">
+                  <div class="text-truncate" data-i18n="Horizontal Form">Horizontal Form</div>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item">
+            <a
+              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/form-validation.html"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-list-check"></i>
+              <div class="text-truncate" data-i18n="Form Validation">Form Validation</div>
+              <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+            </a>
+          </li>
+
+          <li class="menu-item">
+            <a href="tables-basic.html" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-table"></i>
+              <div class="text-truncate" data-i18n="Tables">Tables</div>
+            </a>
+          </li>
+
+          <li class="menu-item">
+            <a
+              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/tables-datatables-basic.html"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-grid"></i>
+              <div class="text-truncate" data-i18n="Datatables">Datatables</div>
+              <div class="badge rounded-pill bg-label-primary text-uppercase fs-tiny ms-auto">Pro</div>
+            </a>
+          </li>
+          <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+          <li class="menu-item">
+            <a
+              href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-support"></i>
+              <div class="text-truncate" data-i18n="Support">Support</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a
+              href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
+              target="_blank"
+              class="menu-link">
+              <i class="menu-icon tf-icons bx bx-file"></i>
+              <div class="text-truncate" data-i18n="Documentation">Documentation</div>
+            </a>
+          </li>
+        </ul>
+      </aside>
     </>
   );
 }

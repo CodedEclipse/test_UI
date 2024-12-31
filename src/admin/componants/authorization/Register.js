@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Stepper, Step } from 'react-form-stepper';
 
-import '../../assets/css/style.css'
-import '../../assets/css/registry.css'
+// import '../../assets/css/style.css'
+// import '../../assets/css/registry.css'
 
 function Register() {
     const [activeStep, setActiveStep] = useState(0);
